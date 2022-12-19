@@ -1,0 +1,28 @@
+{
+    "parser": "babel",
+    "printWidth": 100,
+    "tabWidth": 4,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+    "overrides": [
+        {
+            "files": ".eslintrc.json",
+            "options": { "parser": "json" }
+        },
+        {
+            "files": "*/*.scss",
+            "options": { "parser": "scss" }
+        },
+        {
+            "files": "*.html",
+            "options": { "parser": "html" }
+        },
+        {
+            "files": "*.md",
+            "options": { "parser": "markdown" }
+        }
+    ]
+}

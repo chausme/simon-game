@@ -1,0 +1,23 @@
+{
+  "name": "simon-game",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "patcel build",
+    "lint": "npx eslint src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "chausme",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.2",
+    "eslint": "^8.30.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "parcel": "^2.8.2",
+    "prettier": "2.8.1"
+  }
+}
