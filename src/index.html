@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,11 +11,23 @@
             crossorigin="anonymous"
         />
         <link rel="stylesheet" href="./scss/styles.scss" />
+
+        <audio id="clip1" src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"></audio>
+        <audio id="clip2" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"></audio>
+        <audio id="clip3" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"></audio>
+        <audio id="clip4" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"></audio>
     </head>
-    <body class="bg-light">
-        <main class="my-5 text-center">
-            <h1>Simon Game</h1>
-        </main>
+    <body class="bg-light d-flex align-items-center justify-content-center">
+        <div class="outer">
+            <div class="button top-left"></div>
+            <div class="button top-right"></div>
+            <div class="button bottom-left"></div>
+            <div class="button bottom-right"></div>
+            <div class="inner">
+                <h2>Simon!</h2>
+                <div class="controls text-center mt-5">[controls]</div>
+            </div>
+        </div>
         <script src="./app.js" type="module"></script>
     </body>
 </html>
