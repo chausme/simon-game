@@ -1,4 +1,6 @@
 class Simon {
+    #maxTurnsAmount = 20; // amount to win the game
+
     #colors = ['green', 'red', 'blue', 'yellow'];
 
     #order = [];
@@ -40,21 +42,20 @@ class Simon {
     #btnStrict = document.querySelector('#strict');
 
     // Helper for getting color based turn index
-    #getTurnIndex = color => {
-        return this.#colors.indexOf(color) + 1;
-    };
+    #getTurnIndex = color => this.#colors.indexOf(color) + 1;
 
     // Helper for getting color button since JS private properties can't be dynamic
-    #getColorBtn = color => {
-        if (color === 'green') {
-            return this.#btnGreen;
-        } else if (color === 'red') {
+    #getColorBtn = (color = 'green') => {
+        if (color === 'red') {
             return this.#btnRed;
-        } else if (color === 'blue') {
+        }
+        if (color === 'blue') {
             return this.#btnBlue;
-        } else if (color === 'yellow') {
+        }
+        if (color === 'yellow') {
             return this.#btnYellow;
         }
+        return this.#btnGreen;
     };
 
     // Reset highlighted color if any
@@ -67,13 +68,56 @@ class Simon {
 
     // Flash particular color button
     #flashColor = color => {
-        console.log(`flash color: ${color}`);
         if (this.#sound) {
-            let audio = document.querySelector(`audio[data-color="${color}"]`);
+            const audio = document.querySelector(`audio[data-color="${color}"]`);
             audio.play();
         }
         this.#sound = true;
         this.#getColorBtn(color).classList.add('highlighted');
+    };
+
+    // Set the game as won
+    #setGameWon = () => {
+        console.log('heads up, you won the game');
+    };
+
+    // Check player's turn
+    #check = () => {
+        // Check if the last button player has clicked on isn't equal to actual order[] item
+        // and set success to false if it's the case i.e. lost the game
+        const lastIndex = this.#playerOrder.length - 1;
+        if (this.#playerOrder[lastIndex] !== this.#order[lastIndex]) {
+            this.#success = false;
+        }
+        // Check if player has the right amount of correct turns based on #maxTurnsAmount and success === true
+        // and then set the game as won
+        if (this.#playerOrder.length === this.#maxTurnsAmount && this.#success) {
+            this.#setGameWon();
+        }
+        // Check if player has success === false
+        if (!this.#success) {
+            // Flash the color and show "no" message
+            this.#flashColor();
+            this.#turnCounter.textContent = 'No!';
+            setTimeout(() => {
+                // Reset turn and color
+                this.#turnCounter.textContent = this.#turn;
+                this.#resetColor();
+
+                // CHeck if player is in strict mode
+                if (this.#strict) {
+                    // Reset the entire game
+                    this.#play();
+                } else {
+                    // Otherwise @todo refactor
+                    this.#compTurn = true;
+                    this.#flash = 0;
+                    this.#playerOrder = [];
+                    this.#success = true;
+                    this.#intervalId = setInterval(this.#gameTurn, 800);
+                }
+            }, 800);
+        }
     };
 
     // Process a single game turn
@@ -81,10 +125,12 @@ class Simon {
         console.log('game turn');
         this.#on = false;
 
-        console.log(this.#flash);
+        console.log(`this.#flash = ${this.#flash}`);
+        console.log(`this.#turn = ${this.#turn}`);
 
         // Computer turn is completed
         if (this.#flash === this.#turn) {
+            console.log('computer turn is completed');
             clearInterval(this.#intervalId);
             this.#compTurn = false;
             this.#resetColor();
@@ -122,16 +168,16 @@ class Simon {
         this.#turnCounter.textContent = 1;
         this.#success = true;
         // Get a list of random color turns
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < this.#maxTurnsAmount; i += 1) {
             this.#order.push(Math.floor(Math.random() * 4) + 1);
         }
         this.#compTurn = true;
-        this.intervalId = setInterval(this.#gameTurn, 800);
+        this.#intervalId = setInterval(this.#gameTurn, 800);
         console.log(this.#order);
     };
 
     init() {
-        // Check for "on" status and update output accordingly
+        // Check for "on" status and update settings accordingly
         this.#btnOn.addEventListener('change', e => {
             this.#on = e.currentTarget.checked;
             if (this.#on) {
@@ -161,11 +207,10 @@ class Simon {
         document.querySelectorAll('.button').forEach(btn => {
             btn.addEventListener('click', e => {
                 if (this.#on) {
-                    const color = e.currentTarget.dataset.color;
+                    const { color } = e.currentTarget.dataset;
                     const turnIndex = this.#getTurnIndex(color);
                     this.#playerOrder.push(turnIndex);
-                    //this.#check()
-                    console.log(this);
+                    this.#check();
                     this.#flashColor(color);
                     if (!this.#win) {
                         setTimeout(() => {
