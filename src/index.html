@@ -18,26 +18,26 @@
         <audio id="clip4" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"></audio>
     </head>
     <body class="bg-light d-flex align-items-center justify-content-center">
-        <div class="outer">
+        <div class="outer shadow">
             <div class="button top-left"></div>
             <div class="button top-right"></div>
             <div class="button bottom-left"></div>
             <div class="button bottom-right"></div>
             <div class="inner">
-                <h1>Simon!</h1>
+                <h1>¡Simon!</h1>
                 <div class="controls text-center mt-5">
                     <div class="input-group mb-3">
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="power" />
                             <label class="form-check-label" for="power">Power</label>
                         </div>
-                        <button class="btn btn-dark rounded">Start</button>
+                        <button class="btn btn-dark rounded disabled">Start</button>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="strict" />
                             <label class="form-check-label" for="strict">Strict</label>
                         </div>
                     </div>
-                    <input type="text" id="count" class="form-control count" value="10" disabled />
+                    <input type="text" id="count" class="form-control count" value="" disabled />
                     <label class="form-label" for="count">Count</label>
                 </div>
             </div>

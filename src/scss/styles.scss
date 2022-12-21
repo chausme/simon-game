@@ -32,6 +32,11 @@ body {
     h1 {
         text-transform: uppercase;
         margin-bottom: 0;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 700;
+        letter-spacing: 5px;
+        color: var(--bs-white);
+        text-shadow: 1px 1px 4px var(--bs-black);
     }
 }
 
@@ -45,8 +50,12 @@ body {
     cursor: pointer;
     transition: var(--transition);
 
-    &:hover {
-        opacity: 0.8;
+    &:active {
+        filter: brightness(125%);
+    }
+
+    &.highlighted {
+        filter: brightness(175%);
     }
 }
 
