@@ -1,3 +1,7 @@
+:root {
+    --transition: all 0.1s ease-in-out;
+}
+
 body {
     height: 100vh;
 }
@@ -6,7 +10,7 @@ body {
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    border: 3px var(--bs-black) solid;
+    border: 4px var(--bs-black) solid;
     position: relative;
 }
 
@@ -14,7 +18,7 @@ body {
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    border: 3px var(--bs-black) solid;
+    border: 2px var(--bs-black) solid;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -23,4 +27,90 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background-color: var(--bs-gray-400);
+
+    h1 {
+        text-transform: uppercase;
+        margin-bottom: 0;
+    }
+}
+
+.button {
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 2px var(--bs-black) solid;
+    cursor: pointer;
+    transition: var(--transition);
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.top-left {
+    border-radius: 300px 0 0 0;
+    background: var(--bs-green);
+    margin: -300px 0 0 -300px;
+    border-bottom-width: 1px;
+}
+
+.top-right {
+    border-radius: 0 300px 0 0;
+    background: var(--bs-red);
+    margin: -300px 0 0 0;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+}
+
+.bottom-right {
+    border-radius: 0 0 300px 0;
+    background: var(--bs-blue);
+    margin: 0 0 -300px 0;
+    border-left-width: 1px;
+    border-top-width: 1px;
+}
+
+.bottom-left {
+    border-radius: 0 0 0 300px;
+    background: var(--bs-yellow);
+    margin: 0 0 0 -300px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+}
+
+.controls {
+    button {
+        position: relative;
+        margin-top: -20px;
+        align-self: flex-start;
+    }
+
+    .count {
+        width: 60px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        margin-top: -30px;
+        background: var(--bs-white);
+    }
+
+    label {
+        display: block;
+        user-select: none;
+        font-weight: 600;
+    }
+}
+
+.form-switch {
+    margin: 0 20px !important;
+    padding: 0;
+    width: 50px;
+
+    .form-check-input {
+        float: none;
+        margin: 0;
+    }
 }

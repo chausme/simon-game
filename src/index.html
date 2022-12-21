@@ -24,8 +24,22 @@
             <div class="button bottom-left"></div>
             <div class="button bottom-right"></div>
             <div class="inner">
-                <h2>Simon!</h2>
-                <div class="controls text-center mt-5">[controls]</div>
+                <h1>Simon!</h1>
+                <div class="controls text-center mt-5">
+                    <div class="input-group mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="power" />
+                            <label class="form-check-label" for="power">Power</label>
+                        </div>
+                        <button class="btn btn-dark rounded">Start</button>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="strict" />
+                            <label class="form-check-label" for="strict">Strict</label>
+                        </div>
+                    </div>
+                    <input type="text" id="count" class="form-control count" value="10" disabled />
+                    <label class="form-label" for="count">Count</label>
+                </div>
             </div>
         </div>
         <script src="./app.js" type="module"></script>
