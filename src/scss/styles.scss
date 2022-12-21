@@ -59,6 +59,10 @@ body {
     &.highlighted {
         filter: brightness(175%);
     }
+
+    &.disabled {
+        pointer-events: none;
+    }
 }
 
 .top-left {
