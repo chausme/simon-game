@@ -1,4 +1,6 @@
 class Simon {
+    #colors = ['green', 'red', 'blue', 'yellow'];
+
     #order = [];
 
     #playerOrder = [];
@@ -37,7 +39,12 @@ class Simon {
 
     #btnStrict = document.querySelector('#strict');
 
-    // Get color button since JS private properties can't be dynamic
+    // Helper for getting color based turn index
+    #getTurnIndex = color => {
+        return this.#colors.indexOf(color) + 1;
+    };
+
+    // Helper for getting color button since JS private properties can't be dynamic
     #getColorBtn = color => {
         if (color === 'green') {
             return this.#btnGreen;
@@ -71,8 +78,10 @@ class Simon {
 
     // Process a single game turn
     #gameTurn = () => {
-        this.#on = false;
         console.log('game turn');
+        this.#on = false;
+
+        console.log(this.#flash);
 
         // Computer turn is completed
         if (this.#flash === this.#turn) {
@@ -118,6 +127,7 @@ class Simon {
         }
         this.#compTurn = true;
         this.intervalId = setInterval(this.#gameTurn, 800);
+        console.log(this.#order);
     };
 
     init() {
@@ -145,6 +155,25 @@ class Simon {
             if (this.#on || this.#win) {
                 this.#play();
             }
+        });
+
+        // Process color button clicks
+        document.querySelectorAll('.button').forEach(btn => {
+            btn.addEventListener('click', e => {
+                if (this.#on) {
+                    const color = e.currentTarget.dataset.color;
+                    const turnIndex = this.#getTurnIndex(color);
+                    this.#playerOrder.push(turnIndex);
+                    //this.#check()
+                    console.log(this);
+                    this.#flashColor(color);
+                    if (!this.#win) {
+                        setTimeout(() => {
+                            this.#resetColor();
+                        }, 300);
+                    }
+                }
+            });
         });
     }
 }
