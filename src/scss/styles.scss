@@ -1,5 +1,7 @@
 :root {
     --transition: all 0.1s ease-in-out;
+
+    --light-green: #24e961;
 }
 
 body {
@@ -95,6 +97,8 @@ body {
         position: relative;
         margin-top: -20px;
         align-self: flex-start;
+        text-transform: uppercase;
+        font-weight: 500;
     }
 
     .count {
@@ -103,7 +107,9 @@ body {
         text-align: center;
         position: relative;
         margin-top: -30px;
-        background: var(--bs-white);
+        background: var(--bs-black);
+        color: var(--light-green);
+        font-weight: 700;
     }
 
     label {
