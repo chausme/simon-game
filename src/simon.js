@@ -68,6 +68,7 @@ class Simon {
 
     // Flash particular color button
     #flashColor = color => {
+        console.log(`flashColor: sound = ${this.#sound}, color = ${color}`);
         if (this.#sound) {
             const audio = document.querySelector(`audio[data-color="${color}"]`);
             audio.play();
@@ -82,7 +83,7 @@ class Simon {
     };
 
     // Check player's turn
-    #check = () => {
+    #check = color => {
         // Check if the last button player has clicked on isn't equal to actual order[] item
         // and set success to false if it's the case i.e. lost the game
         const lastIndex = this.#playerOrder.length - 1;
@@ -97,11 +98,11 @@ class Simon {
         // Check if player has success === false
         if (!this.#success) {
             // Flash the color and show "no" message
-            this.#flashColor();
-            this.#turnCounter.textContent = 'No!';
+            this.#flashColor(color);
+            this.#turnCounter.value = 'No!';
             setTimeout(() => {
                 // Reset turn and color
-                this.#turnCounter.textContent = this.#turn;
+                this.#turnCounter.value = this.#turn;
                 this.#resetColor();
 
                 // CHeck if player is in strict mode
@@ -117,6 +118,8 @@ class Simon {
                     this.#intervalId = setInterval(this.#gameTurn, 800);
                 }
             }, 800);
+
+            this.#sound = false;
         }
     };
 
@@ -165,7 +168,7 @@ class Simon {
         this.#flash = 0;
         this.#intervalId = null;
         this.#turn = 1;
-        this.#turnCounter.textContent = 1;
+        this.#turnCounter.value = 1;
         this.#success = true;
         // Get a list of random color turns
         for (let i = 0; i < this.#maxTurnsAmount; i += 1) {
@@ -210,7 +213,7 @@ class Simon {
                     const { color } = e.currentTarget.dataset;
                     const turnIndex = this.#getTurnIndex(color);
                     this.#playerOrder.push(turnIndex);
-                    this.#check();
+                    this.#check(color);
                     this.#flashColor(color);
                     if (!this.#win) {
                         setTimeout(() => {
