@@ -1,27 +1,29 @@
 class Simon {
     // amount of turns to win the game
-    #maxTurnsAmount = 20;
+    #maxTurnsAmount = 3;
 
     // colors for targetting buttons etc
     #colors = ['green', 'red', 'blue', 'yellow'];
 
-    // current game turns order
+    // current game turns order list
     #order = [];
 
-    // player's turn order
+    // player's turn order list
     #playerOrder = [];
 
+    // current flash number @todo add a proper description
     #flash;
 
+    // current turn number i.e. <= #order.length
     #turn;
 
     // store computer's turn status i.e. if current turn is computer's
     #compTurn;
 
-    // store player's turn status i.e. if current turn is failed or not
+    // store player's turn status i.e. if current turn is failed
     #success;
 
-    // store interval's id used for its removal
+    // store interval's id used for its removal later
     #intervalId;
 
     // store player's won status
@@ -81,6 +83,14 @@ class Simon {
         }
     };
 
+    // Reset some of the game state values
+    #resetState = () => {
+        this.#compTurn = true;
+        this.#playerOrder = [];
+        this.#flash = 0;
+        this.#intervalId = setInterval(this.#gameTurn, 800);
+    };
+
     // Flash particular color button
     #flashColor = color => {
         console.log(`flashColor: sound = ${this.#sound}, color = ${color}`);
@@ -93,8 +103,14 @@ class Simon {
     };
 
     // Set the game as won
-    #setGameWon = () => {
+    #setGameWin = () => {
         console.log('heads up, you won the game');
+        this.#turnCounter.value = 'Win!';
+        this.#on = false;
+        this.#win = true;
+        setTimeout(() => {
+            this.#resetColor();
+        }, 300);
     };
 
     // Check player's turn
@@ -109,7 +125,7 @@ class Simon {
         // Check if player has the right amount of correct turns based on #maxTurnsAmount and success === true
         // and then set the game as won
         if (this.#playerOrder.length === this.#maxTurnsAmount && this.#success) {
-            this.#setGameWon();
+            this.#setGameWin();
         }
 
         // Check if player has success === false i.e. failed the turn
@@ -127,12 +143,9 @@ class Simon {
                     // Reset the entire game
                     this.#play();
                 } else {
-                    // Otherwise @todo refactor
-                    this.#compTurn = true;
-                    this.#flash = 0;
-                    this.#playerOrder = [];
+                    // Otherwise
                     this.#success = true;
-                    this.#intervalId = setInterval(this.#gameTurn, 800);
+                    this.#resetState();
                 }
             }, 800);
 
@@ -140,6 +153,13 @@ class Simon {
         }
 
         // Check if player did a correct turn
+        if (this.#turn === this.#playerOrder.length && this.#success && !this.#win) {
+            // Increase turn number
+            this.#turn += 1;
+
+            this.#turnCounter.value = this.#turn;
+            this.#resetState();
+        }
     };
 
     // Process a single game turn
@@ -172,6 +192,7 @@ class Simon {
                 } else if (this.#order[this.#flash] === 4) {
                     this.#flashColor('yellow');
                 }
+                // Increase flash number
                 this.#flash += 1;
             }, 200);
         }
@@ -183,8 +204,6 @@ class Simon {
         // Reset a few values
         this.#win = false;
         this.#order = [];
-        this.#playerOrder = [];
-        this.#flash = 0;
         this.#intervalId = null;
         this.#turn = 1;
         this.#turnCounter.value = 1;
@@ -193,8 +212,7 @@ class Simon {
         for (let i = 0; i < this.#maxTurnsAmount; i += 1) {
             this.#order.push(Math.floor(Math.random() * 4) + 1);
         }
-        this.#compTurn = true;
-        this.#intervalId = setInterval(this.#gameTurn, 800);
+        this.#resetState();
         console.log(this.#order);
     };
 
