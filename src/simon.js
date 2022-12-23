@@ -1,21 +1,33 @@
 class Simon {
-    #maxTurnsAmount = 20; // amount to win the game
+    // amount of turns to win the game
+    #maxTurnsAmount = 20;
 
+    // colors for targetting buttons etc
     #colors = ['green', 'red', 'blue', 'yellow'];
 
+    // current game turns order
     #order = [];
 
+    // player's turn order
     #playerOrder = [];
 
     #flash;
 
     #turn;
 
-    #success;
-
+    // store computer's turn status i.e. if current turn is computer's
     #compTurn;
 
+    // store player's turn status i.e. if current turn is failed or not
+    #success;
+
+    // store interval's id used for its removal
     #intervalId;
+
+    // store player's won status
+    #win;
+
+    // game settings
 
     #strict = false;
 
@@ -23,9 +35,10 @@ class Simon {
 
     #on = false;
 
-    #win;
-
+    // countainer for current turn and "No!" message output
     #turnCounter = document.querySelector('.count');
+
+    // color buttons
 
     #btnGreen = document.querySelector('.top-left');
 
@@ -34,6 +47,8 @@ class Simon {
     #btnBlue = document.querySelector('.bottom-right');
 
     #btnYellow = document.querySelector('.bottom-left');
+
+    // action buttons
 
     #btnOn = document.querySelector('#power');
 
@@ -90,12 +105,14 @@ class Simon {
         if (this.#playerOrder[lastIndex] !== this.#order[lastIndex]) {
             this.#success = false;
         }
+
         // Check if player has the right amount of correct turns based on #maxTurnsAmount and success === true
         // and then set the game as won
         if (this.#playerOrder.length === this.#maxTurnsAmount && this.#success) {
             this.#setGameWon();
         }
-        // Check if player has success === false
+
+        // Check if player has success === false i.e. failed the turn
         if (!this.#success) {
             // Flash the color and show "no" message
             this.#flashColor(color);
@@ -121,6 +138,8 @@ class Simon {
 
             this.#sound = false;
         }
+
+        // Check if player did a correct turn
     };
 
     // Process a single game turn
