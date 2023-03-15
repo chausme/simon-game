@@ -1,5 +1,12 @@
 # Simon Game
 
-Simon Game project based on https://github.com/beaucarnes/simon-game
+Simon Game project based on https://github.com/beaucarnes/simon-game | Sound effects are taken from the original project
 
-Sound effects are taken from the original project
+# Instructions
+
+-   Toggle _Start_ to unlock the Start button
+-   Optionally toggle _Strict_ to make the game reset points and restart after a mistake, it could be done after start
+-   Click on Start button to start the game
+-   Repeat correct colors by clicking on a respective pad
+-   Repeat 10 colors in a row correctly to win the game
+-   Click on Start button after game completion to start a new one

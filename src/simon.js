@@ -1,6 +1,6 @@
 class Simon {
     // amount of turns to win the game
-    #maxTurnsAmount = 3;
+    #maxTurnsAmount = 10;
 
     // colors for targetting buttons etc
     #colors = ['green', 'red', 'blue', 'yellow'];
@@ -138,7 +138,7 @@ class Simon {
                 this.#turnCounter.value = this.#turn;
                 this.#resetColor();
 
-                // CHeck if player is in strict mode
+                // Check if player is in strict mode
                 if (this.#strict) {
                     // Reset the entire game
                     this.#play();
