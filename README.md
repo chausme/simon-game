@@ -2,9 +2,9 @@
 
 Simon Game project based on https://github.com/beaucarnes/simon-game | Sound effects are taken from the original project
 
-![1024px-Simon_Electronic_Game](https://user-images.githubusercontent.com/8984203/225218129-7be8c305-efaf-48c1-80bf-ef65134e68ce.jpg)
+![chrome_lGKUTMlv7G](https://user-images.githubusercontent.com/8984203/225218458-c809d89f-2e04-4662-af38-5008ab9e5c19.gif)
 
-# Instructions
+## Instructions
 
 -   Toggle _Start_ to unlock the Start button
 -   Optionally toggle _Strict_ to make the game reset points and restart after a mistake, it could be done after start
